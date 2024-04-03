@@ -1,6 +1,6 @@
 # Little Lemon
 
-Little Lemon is a restaurant website built using React, as part of the Meta Front End Developer certificate program. The website is designed to showcase the restaurant's menu, services, and contact information.
+Little Lemon is a restaurant website built using React, as part of Meta Front-End Developer Professional Certificate. The website is designed to showcase the restaurant's Home Page, contact information, and Reservations Page.
 
 ## Installation
 
@@ -18,7 +18,7 @@ To use the website, follow these steps:
 2. Run `npm start` to start the development server.
 3. Open your web browser and navigate to `http://localhost:3000`.
 
-You can now browse the Little Lemon restaurant website and view the menu, services, and contact information.
+You can now browse the Little Lemon restaurant website and view the restaurant's Home Page, contact information, and Reservations Page.
 
 ## Technologies Used
 
