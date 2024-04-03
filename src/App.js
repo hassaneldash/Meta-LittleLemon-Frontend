@@ -1,20 +1,20 @@
-import React from 'react';
-import './App.css';
-import Nav from "./components/Nav"
-import Main from "./components/Main"
-import Menu from './components/Menu';
-import Footer from './components/Footer';
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import NotFound from "./pages/NotFound";
+import "./App.css";
+import BookingPage from "./pages/BookingPage";
+import ConfirmedBooking from "./pages/ConfirmedBooking";
 
 function App() {
   return (
- 
-    <>
-      <Nav/>
-      <Main />
-      <Menu/>
-      <Footer/>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/reservations" element={<BookingPage />} />
+        <Route path="confirmed-booking" element={<ConfirmedBooking />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

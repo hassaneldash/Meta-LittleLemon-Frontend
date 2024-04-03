@@ -1,44 +1,78 @@
-import React from "react"
-import small_logo from "../images/Logo .svg"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebookSquare,
+  faTwitterSquare,
+  faInstagramSquare,
+  faPinterestSquare,
+} from "@fortawesome/free-brands-svg-icons";
+import styles from "../styles/Footer.module.css";
 
 const Footer = () => {
-    return(
-        <footer className="">
-            <section>
-            <div className="company-info">
-                <img src={small_logo} alt=""/>
-                <p>We are a family owned Mediterraneran restaurant, focused on traditional recipes servred with a modern twist.</p>
-            </div>
-            <div>
-                <h3>Important Links</h3>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/">About</a></li>
-                <li><a href="/">Menu</a></li>
-                <li><a href="/">Reservations</a></li>
-                <li><a href="/">Order Online</a></li>
-                <li><a href="/">Login</a></li>
-            </ul>
-            </div>
-            <div>
-                <h3>Contact</h3>
-            <ul>
-            <li>Address: <br/> 123 Town Street, Chicago</li>
-                <li>Phone: <br/> +00 123 456 789</li>
-                <li>Email: <br/> little@lemon.com</li>
-            </ul>
-            </div>
-            <div>
-                <h3>Social Media Links</h3>
-            <ul>
-                <li><a href="/">Facebook</a></li>
-                <li><a href="/">Instagram</a></li>
-                <li><a href="/">Twitter</a></li>
-            </ul>
-            </div>
-            </section>
-        </footer>
-    )
-}
+  return (
+    <footer className={styles.footer}>
+      <div className={styles.footerContainer}>
+        {/* Logo */}
+        <div className={styles.footerLogo}>
+          <img src="/Logo-white.png" alt="" />
+        </div>
+        {/* Doormat Navigation */}
+        <ul>
+          <h3>NAVIGATION</h3>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/about">About</a>
+          </li>
+          <li>
+            <a href="/menu">Menu</a>
+          </li>
+          <li>
+            <a href="/reservations">Reservations</a>
+          </li>
+          <li>
+            <a href="/order">Order Online</a>
+          </li>
+          <li>
+            <a href="/login">Login</a>
+          </li>
+        </ul>
+        {/* Contact */}
+        <ul>
+          <h3>Contact Us</h3>
+          <li>123 Main Street, Anytown, USA</li>
+          <li>(555) 123-4567</li>
+          <li>contact@littlelemonrestaurant.com</li>
+        </ul>
+        {/* Social Media Links */}
+        <ul>
+          <h3>Follow Us</h3>
+          <div className={styles.footerLinks}>
+            <li>
+              <a href="https://facebook.com" target="_blank" rel="noreferrer">
+                <FontAwesomeIcon size="2x" icon={faFacebookSquare} />
+              </a>
+            </li>
+            <li>
+              <a href="https://twitter.com" target="_blank" rel="noreferrer">
+                <FontAwesomeIcon size="2x" icon={faTwitterSquare} />
+              </a>
+            </li>
+            <li>
+              <a href="https://instagram.com" target="_blank" rel="noreferrer">
+                <FontAwesomeIcon size="2x" icon={faInstagramSquare} />
+              </a>
+            </li>
+            <li>
+              <a href="https://pinterest.com" target="_blank" rel="noreferrer">
+                <FontAwesomeIcon size="2x" icon={faPinterestSquare} />
+              </a>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;

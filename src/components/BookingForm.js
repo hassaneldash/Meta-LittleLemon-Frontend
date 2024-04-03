@@ -1,60 +1,121 @@
-import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styles from "../styles/BookingForm.module.css";
+import { fetchAPI, submitAPI } from "../api";
+import { useReservationState } from "../context/ReservationContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+const BookingForm = () => {
+  const [availableTimes, setAvailableTimes] = useState(fetchAPI(new Date()));
 
+  // Form state
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState(availableTimes[0]);
+  const [guestNum, setGuestsNum] = useState("");
+  const [occasion, setOccasion] = useState("Anniversary");
 
-const BookingForm = (props) => {
+  //  Submit form & redirect user
+  const navigate = useNavigate();
+  const { dispatch } = useReservationState();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Validate form fields
+    if (!date) {
+      toast.error("Please choose a date");
+      return;
+    }
+    if (!time) {
+      toast.error("Please choose a time");
+      return;
+    }
+    if (guestNum < 1 || guestNum > 10) {
+      toast.error("Please enter a number between 1 and 10");
+      return;
+    }
+    if (!occasion) {
+      toast.error("Please choose an occasion");
+      return;
+    }
 
-   const [occasion, setOccasion] = useState("");
-   const [guests, setGuests] = useState("");
-   const [date, setDate] = useState("");
-   const [times, setTimes] = useState("")
+    const formData = {
+      date,
+      time,
+      guestNum,
+      occasion,
+    };
+    const res = submitAPI(formData);
 
-   const handleSumbit = (e) => {
-   e.preventDefault();
-   props.submitForm(e);
-   };
+    if (res) {
+      dispatch({ type: "SUBMIT_RESERVATION", payload: formData });
+      navigate("/confirmed-booking");
+    }
+  };
 
-   const handleChange = (e) => {
-    setDate(e);
-    props.dispatch(e);
-   }
+  //   Change availability based on choosen date
+  useEffect(() => {
+    if (date) {
+      setAvailableTimes(fetchAPI(new Date(date)));
+    }
+  }, [date]);
 
   return (
-    <header>
-      <section>
-        <form onSubmit={handleSumbit}>
-          <fieldset className="formField">
-            <div>
-              <label htmlFor="book-date">Choose Date:</label>
-              <input id="book-date" value={date} onChange={(e) => handleChange(e.target.value)} type="date" required/>
-            </div>
-            <div>
-              <label htmlFor="book-time">Choose Time:</label>
-              <select id="book-time" value={times} onChange={(e) => setTimes(e.target.value)} required>
-                <option value="">Select a Time</option>
-               {props.availableTimes.availableTimes.map(availableTimes => {return <option key={availableTimes}>{availableTimes}</option>})}
-              </select>
-            </div>
-            <div>
-              <label htmlFor="book-guests">Number of Guests:</label>
-              <input id="book-guests" min="1" value={guests} onChange={(e) => {setGuests(e.target.value)}} type={"number"} placeholder={0} max={10} required></input>
-            </div>
-            <div>
-              <label htmlFor="book-occasion">Occasion:</label>
-              <select id="book-occasion" key={occasion} value={occasion} onChange={(e) => setOccasion(e.target.value)} required>
-                <option value="">Select an Option</option>
-                <option>Birthday</option>
-                <option>Anniversary</option>
-              </select>
-            </div>
-            <div className="btnReceive">
-              <input aria-label="On Click" type={"submit"} value={"Make Your Reservation"}></input>
-            </div>
-          </fieldset>
-        </form>
-      </section>
-    </header>
+    <form
+      data-testid="booking-form"
+      className={styles.bookingForm}
+      onSubmit={handleSubmit}
+    >
+      <ToastContainer />
+      <fieldset>
+        <legend>Reservation Details</legend>
+        <label htmlFor="res-date">Choose date</label>
+        <input
+          type="date"
+          id="res-date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
+
+        <label htmlFor="res-time">Choose time</label>
+        <select
+          value={time}
+          id="res-time"
+          onChange={(e) => setTime(e.target.value)}
+        >
+          {availableTimes.map((t) => (
+            <option value={t} key={t}>
+              {t}
+            </option>
+          ))}
+        </select>
+
+        <label htmlFor="guests">Number of guests</label>
+        <input
+          type="number"
+          placeholder="1"
+          min="1"
+          max="10"
+          id="guests"
+          value={guestNum}
+          onChange={(e) => setGuestsNum(e.target.value)}
+        />
+
+        <label htmlFor="occasion">Occasion</label>
+        <select
+          value={occasion}
+          id="occasion"
+          onChange={(e) => setOccasion(e.target.value)}
+        >
+          <option value="Birthday">Birthday</option>
+          <option value="Anniversary">Anniversary</option>
+        </select>
+      </fieldset>
+      <input
+        type="submit"
+        aria-label="Submit reservation form"
+        value="Make Your reservation"
+      />
+    </form>
   );
 };
 
