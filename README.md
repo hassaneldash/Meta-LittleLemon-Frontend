@@ -29,3 +29,6 @@ The following technologies were used to build this website:
 - HTML
 - CSS
 - JavaScript
+
+## Preview
+![alt text](https://i.imgur.com/22MqTGp.png)
