@@ -30,5 +30,12 @@ The following technologies were used to build this website:
 - CSS
 - JavaScript
 
-## Preview
+## Previews
+
+<p style="text-align: center; font-weight: bold">Home Page</p>
+
 ![alt text](https://i.imgur.com/22MqTGp.png)
+
+<p style="text-align: center; font-weight: bold">Reservations Page</p>
+
+![alt text](https://i.imgur.com/m5GEQGC.png)
